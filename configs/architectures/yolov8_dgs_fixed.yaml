@@ -1,0 +1,39 @@
+
+# YOLOv8-DGS cho RDD26k - FORMAT CHUẨN YOLOv8
+nc: 5  # classes 0,1,2,3,4 từ RDD2020
+names: ['0', '1', '2', '3', '4']
+
+# BẮT BUỘC: scales cho YOLOv8
+scales:
+  n: [0.33, 0.25, 1024]  # nano
+
+backbone:
+  # DWConv backbone layers 0,1,3,5 (paper Fig.2)
+  - [-1,  1, DWConv, [32,  3, 2]]  # 0-P1/2
+  - [-1,  1, DWConv, [64,  3, 2]]  # 1-P2/4
+  - [-1,  3,  C2f,  [64, True]]
+  - [-1,  1, DWConv, [128, 3, 2]]  # 3-P3/8
+  - [-1,  6,  C2f,  [128, True]]
+  - [-1,  1, DWConv, [256, 3, 2]]  # 5-P4/16
+  - [-1,  6,  C2f,  [256, True]]
+  - [-1,  1,  SPPF, [256, 5]]      # 9
+
+head:
+  - [-1, 1, nn.Upsample, [None, 2, 'nearest']]
+  - [[-1, 6], 1, Concat, [1]]      # cat backbone P4 (layer 6)
+  - [-1, 3, C2f, [128]]            # 12
+
+  - [-1, 1, nn.Upsample, [None, 2, 'nearest']]
+  - [[-1, 4], 1, Concat, [1]]      # cat backbone P3 (layer 4)
+  - [-1, 3, C2f, [64]]             # 15 (P3/8-small)
+
+  - [-1, 1, GSConv, [64, 3, 2]]    # 16-GSConv paper neck
+  - [[-1, 12], 1, Concat, [1]]     # cat head layer 12
+  - [-1, 3, C2f, [128]]            # 18 (P4/16-medium)
+
+  - [-1, 1, GSConv, [128, 3, 2]]   # 19-GSConv paper neck
+  - [[-1, 9], 1, Concat, [1]]      # cat backbone SPPF layer 9
+  - [-1, 3, C2f, [256]]            # 21 (P5/32-large)
+
+  # Detect(P3=15, P4=18, P5=21) - indices ĐÚNG!
+  - [[15, 18, 21], 1, Detect, [nc]]

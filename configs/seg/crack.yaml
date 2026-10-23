@@ -1,0 +1,7 @@
+path: E:/PROJECT/Hu_hong_duong
+train: E:/PROJECT/Hu_hong_duong/data/manifests/crack/train.txt
+val: E:/PROJECT/Hu_hong_duong/data/manifests/crack/val.txt
+test: E:/PROJECT/Hu_hong_duong/data/manifests/crack/test.txt
+nc: 1
+names:
+  0: crack

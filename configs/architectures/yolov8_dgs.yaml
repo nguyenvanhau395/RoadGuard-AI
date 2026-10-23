@@ -1,0 +1,33 @@
+
+# YOLOv8-DGS Nano cho RDD26k (DWConv backbone + GSConv neck)
+nc: 5  # classes 0,1,2,3,4
+names: ['0', '1', '2', '3', '4']
+
+backbone:
+  # DWConv thay Conv ở layers 0,1,3,5 (paper)
+  - [-1, 1, DWConv, [32, 3, 2]]     # 0-P1/2
+  - [-1, 1, DWConv, [64, 3, 2]]     # 1-P2/4  
+  - [-1, 3, C2f, [64, True]]
+  - [-1, 1, DWConv, [128, 3, 2]]    # 3-P3/8
+  - [-1, 6, C2f, [128, True]]
+  - [-1, 1, DWConv, [256, 3, 2]]    # 5-P4/16
+  - [-1, 6, C2f, [256, True]]
+  - [-1, 1, SPPF, [256, 5]]         # 9
+
+head:
+  - [-1, 1, nn.Upsample, [None, 2, 'nearest']]
+  - [[-1, 6], 1, Concat, [1]] 
+  - [-1, 3, C2f, [128]]             # 12
+  - [-1, 1, nn.Upsample, [None, 2, 'nearest']]
+  - [[-1, 4], 1, Concat, [1]] 
+  - [-1, 3, C2f, [64]]              # 15-P3/8
+
+  - [-1, 1, GSConv, [64, 3, 2]]     # 16-GSConv paper neck
+  - [[-1, 12], 1, Concat, [1]] 
+  - [-1, 3, C2f, [128]]             # 18-P4/16
+
+  - [-1, 1, GSConv, [128, 3, 2]]    # 19-GSConv paper neck
+  - [[-1, 9], 1, Concat, [1]] 
+  - [-1, 3, C2f, [256]]             # 21-P5/32
+
+  - [[15, 18, 21], 1, Detect, [nc]]

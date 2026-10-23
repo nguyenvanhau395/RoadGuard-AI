@@ -1,0 +1,68 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+!.roadguard.env.example
+.roadguard.env
+
+# Python environments and caches
+.conda/
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Local application and browser state
+.interface_runs/
+.playwright-cli/
+
+# Personal documents and machine-specific material
+DoAn_GTTM_TrieuKhuc/
+DoAn_GTTM_HuHongMatDuong_TrieuKhuc.pptx
+BaoCao_KiemTra_PPTX.md
+Nguon_TaiLieu_Tham_Khao.md
+NoiDung_ThuyetTrinh.md
+Screenshot*.png
+scripts/start_domain.ps1
+
+# Datasets, training runs, and archived experiments
+assets/
+data/raw/
+data/archives/
+data/manifests/
+runs/
+archive/
+
+# Generated runtime output
+reports/runtime/
+reports/smoke/batches/
+reports/
+*.log
+*.tmp
+
+# Large media and pretrained artifacts
+assets/**/video_test/
+assets/**/videos/
+*.mp4
+*.mov
+*.MOV
+*.avi
+*.mkv
+*.webm
+*.zip
+*.pt
+*.pth
+*.onnx
+models/pretrained/
+!models/runtime/
+!models/runtime/*.pt
+
+# Operating-system files
+desktop.ini
+Thumbs.db
+.DS_Store
