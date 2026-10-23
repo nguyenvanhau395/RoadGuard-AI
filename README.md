@@ -16,16 +16,17 @@ RoadGuard AI là ứng dụng thị giác máy tính phát hiện, phân đoạn
 ```text
 configs/          Cấu hình model và môi trường mẫu
 models/runtime/   Ba checkpoint dùng bởi giao diện
-notebooks/        Notebook hiện tại và các notebook lịch sử đã làm sạch
+notebooks/        Notebook thí nghiệm đang được duy trì
 scripts/          Script khởi động, kiểm thử và xử lý dữ liệu
 src/road_damage/  Mã nguồn pipeline dùng chung
 tests/            Bộ kiểm thử tự động
 web/              Giao diện kiểm thử local
+docs/             Tài liệu thiết kế và model đã chọn
 ```
 
 Dataset, môi trường Python, video đầu vào, kết quả phân tích và run huấn luyện không được lưu trong repository.
 
-Các checkpoint cuối (`best*.pt`, `last*.pt`) của những lượt huấn luyện được lưu dưới `models/trained/` bằng Git LFS. Snapshot epoch trung gian vẫn ở local vì chúng lặp dữ liệu và có tổng dung lượng rất lớn.
+Chỉ ba checkpoint runtime trong `models/runtime/` được lưu bằng Git LFS. Dataset, checkpoint huấn luyện, kết quả chạy và archive vẫn ở local để repository gọn và clone nhanh.
 
 ## Clone
 
@@ -46,6 +47,7 @@ Yêu cầu Python 3.11. Các phiên bản thư viện tham chiếu nằm trong `
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.lock.txt
+pip install -e .
 ```
 
 Nếu dùng GPU, hãy cài bản PyTorch CUDA phù hợp với driver trước khi cài các thư viện còn lại.
@@ -73,3 +75,7 @@ python -m pytest -q
 ```
 
 Giao diện xử lý đầy đủ file video tải lên theo job nền. Đây không phải luồng camera/RTSP real-time; camera trực tiếp cần một pipeline streaming riêng.
+
+## Dữ liệu và huấn luyện
+
+Thư mục `data/`, `runs/`, `reports/`, `archive/` và `models/trained/` là dữ liệu local, không commit. Sau khi đưa dataset vào `data/raw/`, chạy `road_damage.dataset.prepare_dataset(...)` để tạo manifest và YAML có đường dẫn tuyệt đối cho máy hiện tại. Các YAML trong `configs/seg/` là mẫu portable cho layout repository. Xem `docs/models.md` để biết ba model runtime được chốt.

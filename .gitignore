@@ -45,6 +45,9 @@ scripts/start_domain.ps1
 /data/manifests/
 /runs/
 /archive/
+/models/trained/
+/notebooks/archive/
+/notebooks/runs/
 
 # Generated runtime output
 /reports/runtime/
@@ -69,8 +72,6 @@ assets/**/videos/
 models/pretrained/
 !models/runtime/
 !models/runtime/*.pt
-!models/trained/
-!models/trained/**/*.pt
 
 # Operating-system files
 desktop.ini
