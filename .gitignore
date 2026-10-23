@@ -16,6 +16,7 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 .ipynb_checkpoints/
+notebooks/private/
 
 # Local application and browser state
 .interface_runs/
@@ -31,17 +32,17 @@ Screenshot*.png
 scripts/start_domain.ps1
 
 # Datasets, training runs, and archived experiments
-assets/
-data/raw/
-data/archives/
-data/manifests/
-runs/
-archive/
+/assets/
+/data/raw/
+/data/archives/
+/data/manifests/
+/runs/
+/archive/
 
 # Generated runtime output
-reports/runtime/
-reports/smoke/batches/
-reports/
+/reports/runtime/
+/reports/smoke/batches/
+/reports/
 *.log
 *.tmp
 
@@ -61,6 +62,8 @@ assets/**/videos/
 models/pretrained/
 !models/runtime/
 !models/runtime/*.pt
+!models/trained/
+!models/trained/**/*.pt
 
 # Operating-system files
 desktop.ini

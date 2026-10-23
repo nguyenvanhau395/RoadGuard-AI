@@ -16,7 +16,7 @@ RoadGuard AI là ứng dụng thị giác máy tính phát hiện, phân đoạn
 ```text
 configs/          Cấu hình model và môi trường mẫu
 models/runtime/   Ba checkpoint dùng bởi giao diện
-notebooks/        Notebook huấn luyện và đánh giá
+notebooks/        Notebook hiện tại và các notebook lịch sử đã làm sạch
 scripts/          Script khởi động, kiểm thử và xử lý dữ liệu
 src/road_damage/  Mã nguồn pipeline dùng chung
 tests/            Bộ kiểm thử tự động
@@ -24,6 +24,8 @@ web/              Giao diện kiểm thử local
 ```
 
 Dataset, môi trường Python, video đầu vào, kết quả phân tích và run huấn luyện không được lưu trong repository.
+
+Các checkpoint cuối (`best*.pt`, `last*.pt`) của những lượt huấn luyện được lưu dưới `models/trained/` bằng Git LFS. Snapshot epoch trung gian vẫn ở local vì chúng lặp dữ liệu và có tổng dung lượng rất lớn.
 
 ## Clone
 
