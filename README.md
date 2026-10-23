@@ -111,6 +111,16 @@ Lệnh test yêu cầu đã cài extra `.[dev]` và đã tải đủ ba checkpoi
 
 Thư mục `data/`, `runs/`, `reports/`, `archive/` và `models/trained/` là dữ liệu local, không commit. Raw dataset phải có `data.yaml` cùng ba split `train`, `valid` (hoặc `val`) và `test`; mỗi split gồm `images/` và `labels/`.
 
+### Nguồn dữ liệu
+
+| Dataset local | Nguồn / tình trạng provenance | License | Ghi chú |
+|---|---|---|---|
+| `pothole-v2` | [Roboflow Universe — Pothole v2](https://universe.roboflow.com/major-vl1h9/pothole-bwzav/dataset/2) · workspace `major-vl1h9`, project `pothole-bwzav`, version 2 | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | Export YOLO có metadata Roboflow, dùng cho phân đoạn ổ gà. |
+| `crack-4` | Export local nhãn `crack`; repository không kèm metadata nguồn, URL công khai hoặc license có thể kiểm chứng | Chưa xác minh | Cần bổ sung đường dẫn nguồn, tác giả và license trước khi phát hành lại hoặc dùng ngoài phạm vi nội bộ. |
+| RDD2022 (detection tham khảo) | [Kaggle — rdd2022](https://www.kaggle.com/datasets/sujityp/rdd2022) · tác giả Kaggle: `sujityp` | Unknown trên Kaggle | Nguồn tham khảo cho các lớp detection `D00`, `D10`, `D20`, `D40`; không xác nhận nguồn hoặc license của hai export SEG local ở trên. |
+
+Tên lớp `D00`, `D10`, `D20`, `D40` là quy ước runtime detection theo RDD2022; chúng không tự chứng minh rằng mọi dataset SEG trong project có cùng nguồn hoặc license với RDD2022.
+
 ```text
 data/raw/crack-4/      # dataset crack
 data/raw/pothole-v2/   # dataset pothole
