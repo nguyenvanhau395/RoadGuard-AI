@@ -3,13 +3,14 @@ setlocal
 title RoadGuard AI Launcher
 
 set "PROJECT_DIR=%~dp0"
-set "PYTHON_EXE=%PROJECT_DIR%.conda\python.exe"
+set "PYTHON_EXE=%PROJECT_DIR%.venv\Scripts\python.exe"
+if not exist "%PYTHON_EXE%" set "PYTHON_EXE=%PROJECT_DIR%.conda\python.exe"
 set "SERVER_SCRIPT=%PROJECT_DIR%scripts\test_interface.py"
 set "LOCAL_URL=http://127.0.0.1:8765/"
 
 if not exist "%PYTHON_EXE%" (
     echo [LOI] Khong tim thay moi truong Python:
-    echo %PYTHON_EXE%
+    echo Tao .venv hoac .conda trong thu muc project.
     echo.
     pause
     exit /b 1

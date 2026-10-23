@@ -4,10 +4,14 @@ param(
 )
 
 $projectRoot = Split-Path -Parent $PSScriptRoot
-$projectPython = Join-Path $projectRoot ".conda\python.exe"
+$pythonCandidates = @(
+    (Join-Path $projectRoot ".venv\Scripts\python.exe"),
+    (Join-Path $projectRoot ".conda\python.exe")
+)
+$projectPython = $pythonCandidates | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
 
-if (-not (Test-Path -LiteralPath $projectPython)) {
-    throw "Không tìm thấy Python environment của project: $projectPython"
+if (-not $projectPython) {
+    throw "Không tìm thấy Python environment. Hãy tạo .venv hoặc .conda trong: $projectRoot"
 }
 
 Write-Host "Dùng environment: $projectPython"

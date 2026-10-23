@@ -8,6 +8,9 @@ version = "0.1.0"
 description = "Road-surface damage detection, segmentation, and measurement tools."
 requires-python = ">=3.11"
 
+[project.optional-dependencies]
+dev = ["pytest>=8,<9"]
+
 [tool.setuptools]
 package-dir = {"" = "src"}
 
